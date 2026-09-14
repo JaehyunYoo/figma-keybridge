@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="660" viewBox="0 0 1120 660">
+<rect width="1120" height="660" fill="#F3F4EF"/>
+<text x="64" y="63" font-family="Helvetica,Arial,sans-serif" font-size="12" letter-spacing="2" fill="#70776D">KEYBRIDGE / VISUAL IDENTITY</text>
+<g transform="translate(76 148) scale(2.5)"><rect width="128" height="128" rx="29" fill="#1C201D"/><path d="M38 35V93" fill="none" stroke="#F4F5EF" stroke-width="13" stroke-linecap="round"/><path d="M39 64H58L88 35" fill="none" stroke="#C4F35B" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M58 64L88 93" fill="none" stroke="#F4F5EF" stroke-width="13" stroke-linecap="round"/></g>
+<text x="476" y="260" font-family="Helvetica,Arial,sans-serif" font-size="72" font-weight="700" letter-spacing="-3.5" fill="#1C201D">Keybridge</text>
+<text x="480" y="310" font-family="Helvetica,Arial,sans-serif" font-size="22" fill="#71796F">From design to code.</text>
+<path d="M480 354H1030" stroke="#D6DAD1"/>
+<g transform="translate(480 384) scale(.5)"><rect width="128" height="128" rx="29" fill="#1C201D"/><path d="M38 35V93" fill="none" stroke="#F4F5EF" stroke-width="13" stroke-linecap="round"/><path d="M39 64H58L88 35" fill="none" stroke="#C4F35B" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M58 64L88 93" fill="none" stroke="#F4F5EF" stroke-width="13" stroke-linecap="round"/></g>
+<g transform="translate(566 400) scale(.25)"><rect width="128" height="128" rx="29" fill="#1C201D"/><path d="M38 35V93" fill="none" stroke="#F4F5EF" stroke-width="13" stroke-linecap="round"/><path d="M39 64H58L88 35" fill="none" stroke="#C4F35B" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M58 64L88 93" fill="none" stroke="#F4F5EF" stroke-width="13" stroke-linecap="round"/></g>
+<g transform="translate(626 408) scale(.125)"><rect width="128" height="128" rx="29" fill="#1C201D"/><path d="M38 35V93" fill="none" stroke="#F4F5EF" stroke-width="13" stroke-linecap="round"/><path d="M39 64H58L88 35" fill="none" stroke="#C4F35B" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><path d="M58 64L88 93" fill="none" stroke="#F4F5EF" stroke-width="13" stroke-linecap="round"/></g>
+<text x="678" y="422" font-family="Helvetica,Arial,sans-serif" font-size="13" fill="#71796F">One clear mark, at every size.</text>
+<path d="M64 541H1056" stroke="#D6DAD1"/>
+<rect x="64" y="576" width="18" height="18" rx="5" fill="#1C201D"/><text x="94" y="590" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#60685E">CHARCOAL</text>
+<rect x="240" y="576" width="18" height="18" rx="5" fill="#C4F35B"/><text x="270" y="590" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#60685E">LIME</text>
+<text x="930" y="590" font-family="Helvetica,Arial,sans-serif" font-size="12" fill="#71796F">K + CONNECTION</text>
+</svg>

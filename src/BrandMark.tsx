@@ -1,0 +1,2 @@
+import React from "react";
+export function BrandMark(){return <svg viewBox="0 0 128 128" className="size-8 shrink-0" aria-hidden="true"><rect width="128" height="128" rx="29" fill="#1C201D"/><path d="M38 35V93" fill="none" stroke="#F4F5EF" strokeWidth="13" strokeLinecap="round"/><path d="M39 64H58L88 35" fill="none" stroke="#C4F35B" strokeWidth="13" strokeLinecap="round" strokeLinejoin="round"/><path d="M58 64L88 93" fill="none" stroke="#F4F5EF" strokeWidth="13" strokeLinecap="round"/></svg>;}

@@ -1,0 +1,17 @@
+{
+  "name": "Keybridge — Figma to Markdown",
+  "id": "1681152085731286784",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": [
+    "figma"
+  ],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": [
+      "https://api.github.com"
+    ],
+    "reasoning": "Read localization catalogs and create draft pull requests in the GitHub repository selected by the user."
+  }
+}

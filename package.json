@@ -1,0 +1,12 @@
+{
+  "name": "figma-keybridge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Figma text → stable keys → reviewed Markdown → Flutter JSON",
+  "scripts": {
+    "build": "node scripts/build.cjs",
+    "test": "node --test tests/*.test.cjs",
+    "example": "node scripts/catalog.cjs export examples/catalog.md --out examples/generated"
+  },
+  "engines": {"node": ">=20"}
+}

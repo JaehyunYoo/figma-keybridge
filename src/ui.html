@@ -1,0 +1,40 @@
+<!doctype html><html lang="ko"><meta charset="utf-8"><style>
+:root{font:12px/1.5 Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#172b3a;background:#f5f7fa}*{box-sizing:border-box}body{margin:0}header{padding:22px 24px;background:#142f3d;color:white}header h1{margin:0;font-size:22px;letter-spacing:-.7px}header p{color:#bcd0da;margin:6px 0 0}main{padding:18px 22px}.steps{display:flex;gap:7px;margin-bottom:16px}.steps span{background:#e4edf1;padding:5px 10px;border-radius:20px;font-size:11px}section{background:white;border:1px solid #dce3e9;border-radius:12px;padding:15px;margin-bottom:12px}h2{font-size:13px;margin:0 0 10px}button,.file{font:inherit;border:1px solid #ccd8df;border-radius:6px;background:white;color:#234354;padding:7px 10px;cursor:pointer}button:hover,.file:hover{background:#edf4f7}button.primary{background:#147565;color:white;border-color:#147565}button:disabled{opacity:.4;cursor:default}input,select{font:inherit;padding:7px;border:1px solid #cdd9e0;border-radius:5px;background:white;color:#172b3a}input.key{width:100%;font-family:monospace}input.small{width:85px}.toolbar{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.hint{font-size:11px;color:#657989;margin:8px 0 0}.status{white-space:pre-wrap;margin-top:9px;color:#356653}.error{color:#a63131}#rows{max-height:260px;overflow:auto;margin-top:12px}.row{border-top:1px solid #e8edf1;padding:10px 0;display:grid;grid-template-columns:1fr 1fr;gap:12px}.text{white-space:pre-wrap;overflow-wrap:anywhere;max-height:82px;overflow:auto}.meta{font-size:10px;color:#72818c}.footer{display:flex;justify-content:space-between;align-items:center}a{color:#147565}#preview{width:100%;height:150px;margin-top:12px;font:11px/1.5 monospace;resize:vertical;display:none}#count{font-size:11px;color:#657989}.empty{text-align:center;padding:25px;color:#74838f}
+</style><header><h1>Keybridge <span style="font-size:11px;font-weight:400;color:#96b9c8">LOCAL · v0.1</span></h1><p>문구 확정을 기다리지 않고, 키부터 연결하세요.</p></header><main>
+<div class="steps"><span>01 텍스트 선택</span><span>02 키 연결</span><span>03 MD로 전달</span></div>
+<section><h2>기존 카탈로그 연결 <small style="font-weight:400;color:#82929b">선택 사항</small></h2><div class="toolbar"><label class="file">기존 MD 가져오기<input type="file" id="file" accept=".md" hidden></label><button id="clear">연결 해제</button><span id="baseline">새 카탈로그</span></div><p class="hint">검수된 문구·번역을 보존합니다. 같은 문서·노드 연결 또는 유일하게 일치하는 원문으로 키를 제안합니다.</p></section>
+<section><div class="footer"><h2 style="margin:0">텍스트와 키</h2><span id="count">0개</span></div><div class="toolbar" style="margin-top:12px"><select id="scope"><option value="selection">선택한 영역</option><option value="page">현재 페이지 전체</option></select><button id="scan">불러오기</button><input class="small" id="prefix" value="screen" aria-label="키 접두사"><button id="generate">빈 키 생성</button><button class="primary" id="save">키 연결 저장</button></div><p class="hint">자동 키는 접두사 + 노드 ID로 생성됩니다. 의미 있는 이름으로 수정 후 저장하세요. 선택 영역의 숨겨진 텍스트도 포함됩니다.</p><div id="rows"><div class="empty">Figma에서 프레임을 선택한 뒤 불러오세요.</div></div></section>
+<section><div class="toolbar"><label>기준 언어 <input class="small" id="locale" value="ko"></label><button id="export" class="primary">MD 미리보기·다운로드</button></div><p class="hint">저장한 키를 내보냅니다. 선택하지 않은 기존 키는 삭제하지 않습니다.</p><textarea id="preview" readonly aria-label="MD 미리보기"></textarea><div id="status" class="status" role="status" aria-live="polite"></div></section></main>
+<script>/* CORE */</script><script>
+const $ = id => document.getElementById(id);
+let rows=[], baseline=null, dirty=false;
+const send = data => parent.postMessage({pluginMessage:data}, '*');
+function status(message, error=false){$('status').textContent=message;$('status').className='status'+(error?' error':'');}
+function guard(fn){try{fn();}catch(e){status(e.message,true);}}
+function suggest(){if(!baseline)return;for(const row of rows){if(row.key)continue;
+ const byRef=baseline.entries.filter(e=>e.refs.some(r=>r.documentId===row.ref.documentId&&r.nodeId===row.id));
+ const matches=byRef.length?byRef:baseline.entries.filter(e=>e.source===row.text);
+ if(matches.length===1){row.key=matches[0].key;dirty=true;}
+}}
+function render(){
+ $('count').textContent=rows.length+'개 · '+rows.filter(r=>!r.key).length+'개 미연결'+(dirty?' · 저장 필요':'');
+ $('rows').replaceChildren();
+ if(!rows.length){const e=document.createElement('div');e.className='empty';e.textContent='텍스트가 없습니다.';$('rows').append(e);}
+ for(const row of rows){const item=document.createElement('div');item.className='row';const left=document.createElement('div');
+ const text=document.createElement('div');text.className='text';text.textContent=row.text;
+ const meta=document.createElement('div');meta.className='meta';meta.textContent=row.ref.frame+' / '+row.name;
+ left.append(text,meta);const right=document.createElement('div');const input=document.createElement('input');input.className='key';input.value=row.key;input.placeholder='checkout.payButton';input.setAttribute('aria-label',row.name+' 번역 키');
+ input.oninput=()=>{row.key=input.value.trim();dirty=true;$('count').textContent=rows.length+'개 · 저장 필요';};
+ const focus=document.createElement('button');focus.textContent='화면에서 보기';focus.style.cssText='padding:2px 5px;margin-top:5px;font-size:10px';focus.onclick=()=>send({type:'focus',id:row.id});right.append(input,focus);item.append(left,right);$('rows').append(item);}
+}
+$('scan').onclick=()=>{if(dirty&&!confirm('저장하지 않은 키 편집을 버리고 다시 불러올까요?'))return;send({type:'scan',scope:$('scope').value});};
+$('save').onclick=()=>{if(!rows.length)return status('먼저 텍스트를 불러오세요.',true);send({type:'save',rows:rows.map(r=>({id:r.id,key:r.key}))});};
+$('generate').onclick=()=>guard(()=>{const prefix=$('prefix').value.trim();if(!Keybridge.KEY.test(prefix))throw new Error('접두사는 영문으로 시작하고 영문·숫자·밑줄·점으로 구성하세요.');for(const r of rows)if(!r.key){r.key=prefix+'.text_'+r.id.replace(/[^A-Za-z0-9_]/g,'_');dirty=true;}render();});
+$('file').onchange=async()=>{try{const f=$('file').files[0];if(!f)return;baseline=Keybridge.parse(await f.text());$('baseline').textContent=f.name+' · '+baseline.entries.length+'키';$('locale').value=baseline.sourceLocale;$('locale').disabled=true;suggest();render();status('기존 카탈로그를 연결했습니다. 제안된 키를 확인하고 저장하세요.');}catch(e){status(e.message,true);}finally{$('file').value='';}};
+$('clear').onclick=()=>{baseline=null;$('baseline').textContent='새 카탈로그';$('locale').disabled=false;status('기존 카탈로그 연결을 해제했습니다. 현재 키 입력은 유지됩니다.');};
+$('export').onclick=()=>guard(()=>{if(!rows.length)throw new Error('먼저 텍스트를 불러오세요.');if(dirty)throw new Error('키 연결을 먼저 저장하세요.');const incoming=Keybridge.fromRows(rows,$('locale').value.trim());const result=baseline?Keybridge.merge(baseline,incoming):{catalog:incoming,report:{added:incoming.entries.map(e=>e.key),changed:[],retained:[]}};
+ const md=Keybridge.stringify(result.catalog);$('preview').style.display='block';$('preview').value=md;
+ const link=document.createElement('a');const url=URL.createObjectURL(new Blob([md],{type:'text/markdown;charset=utf-8'}));link.href=url;link.download='catalog.md';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+ status('새 키 '+result.report.added.length+'개 · 변경 제안 '+result.report.changed.length+'개 · 선택 밖 기존 키 '+result.report.retained.length+'개 보존\n'+(result.report.changed.length?'변경 제안: '+result.report.changed.join(', '):'Git에서 MD 변경 내용을 검토하세요.'));});
+window.onmessage=event=>{const m=event.data.pluginMessage;if(!m)return;if(m.type==='rows'){rows=m.rows;dirty=false;suggest();render();}if(m.type==='error')status(m.message,true);};
+</script></html>

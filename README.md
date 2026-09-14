@@ -1,5 +1,9 @@
 # Keybridge — Figma → Markdown → Flutter JSON
 
+![Keybridge 브랜드 미리보기](assets/brand/brand-preview.png)
+
+[브랜드 에셋 안내](assets/brand/README.md) · [미리보기 원본](assets/brand/brand-preview.png)
+
 문구 검수가 끝나기 전에 개발자가 키를 연결하고 개발을 시작하는 로컬 Figma 플러그인입니다. 로컬 기능은 계정 없이 실행합니다. 선택 기능인 GitHub 연결은 사용자 토큰을 사용합니다. **v0.7.1 프로토타입**이며 실제 Figma 파일에서의 설치·동작 검증은 별도로 필요합니다.
 
 ## 구성
